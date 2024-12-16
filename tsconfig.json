@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", // Sets output to ES2022 JavaScript
+    "module": "CommonJS", // Uses CommonJS modules
+    "strict": true, // Enables all strict type checks
+    "noImplicitAny": true, // Disallows implicit 'any' type
+    "strictNullChecks": true, // Differentiates null and undefined types
+    "strictFunctionTypes": true, // Strict checks on function types
+    "forceConsistentCasingInFileNames": true, // Enforces case-sensitive file names
+    "noUnusedParameters": false, // Warns on unused parameters
+    "esModuleInterop": true, // Improves compatibility with ES modules
+    "skipLibCheck": true // Skips type checking for declaration files
+  },
+  "include": ["src/**/*"], // Includes all TypeScript files in 'src'
+  "exclude": ["node_modules", "dist"] // Excludes dependencies and build output
+}
