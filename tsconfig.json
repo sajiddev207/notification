@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "outDir": "./dist", // Specifies the output folder for compiled JavaScript files
+    "rootDir": "./src", // Specifies the root folder of your TypeScript files
     "target": "ES2022", // Sets output to ES2022 JavaScript
     "module": "CommonJS", // Uses CommonJS modules
     "strict": true, // Enables all strict type checks
