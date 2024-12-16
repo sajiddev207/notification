@@ -11,7 +11,6 @@ export const sendEmailBySmtp2GO = async (req: Request, res: Response) => {
   try {
     //extract body data
     const { name, email, subject, message } = req.body;
-    console.log("req____", req.body);
 
     // Call the SMTP2Go service to send an email
     const serviceRes = await emailService.sendEmailBySmtp2Go(subject, message);

@@ -1,38 +1,29 @@
-// src/config/database.ts
-import dotenv from "dotenv";
-import { Sequelize } from "sequelize";
+// db connection imports
+require("dotenv").config();
+import mongoose from "mongoose";
 
-dotenv.config();
-
-const { DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS } = process.env;
+const { DB_URL } = process.env;
 
 // Check for required environment variables
-if (!DB_HOST || !DB_PORT || !DB_NAME || !DB_USER || !DB_PASS) {
+if (!DB_URL) {
   throw new Error(
-    "Missing one or more required environment variables for database configuration."
+    "Uri is missing in environment variable for connecting the db to the project."
   );
 }
 
-const sequelize: Sequelize = new Sequelize(
-  process.env.DB_NAME as string,
-  process.env.DB_USER as string,
-  process.env.DB_PASS as string,
-  {
-    host: process.env.DB_HOST as string,
-    dialect: "postgres",
-    logging: false,
-  }
-);
+const dbUrl: string = process.env.DB_URL as string;
 
-export const connectDatabase = async () => {
+export const dbConnection = async () => {
   try {
-    await sequelize.authenticate();
-    console.log("Database connected successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-    process.exit(1); // Exit process with failure
+    // Starting establish DB connection
+    await mongoose.connect(dbUrl);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error connecting to MongoDB:", error.message);
+      process.exit(0);
+    } else {
+      console.error("An unknown error occurred during MongoDB connection.");
+      process.exit(0);
+    }
   }
 };
-
-export { sequelize };
-export default sequelize;

@@ -5,7 +5,7 @@ import { sendEmailBySmtp2GOHelper } from "../helpers/EmailHelpers";
 export const sendEmailBySmtp2Go = async (subject: string, message: string) => {
   try {
     const response = await sendEmailBySmtp2GOHelper(subject, message);
-    console.log(`Email sent :`, response);
+    console.log(`Email sent :`, response?.messageId);
 
     return response;
   } catch (error) {

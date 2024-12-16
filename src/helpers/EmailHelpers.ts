@@ -20,8 +20,8 @@ export const sendEmailBySmtp2GOHelper = async (
 ) => {
   try {
     const mailOptions: Smtp2GoEmailFormat = {
-      from: "manish.rana@essencetechlabs.com", // Sender address (must be verified in SMTP2Go)
-      to: "sajiddev207@gmail.com", // List of recipients
+      from: process.env.SMTP2GO_USER as string, // Sender address (must be verified in SMTP2Go)
+      to: process.env.SMTP2GO_RECEIVER as string, // List of recipients
       subject: subject, // Subject line
       text: message, // Plain text message
     };

@@ -3,7 +3,7 @@ import express, { Application } from "express";
 import cors from "cors";
 
 // import local files
-import { connectDatabase, sequelize } from "./config/database";
+import { dbConnection } from "./config/database";
 
 //import routes
 import emailRoutes from "./routes/emailRoutes";
@@ -30,11 +30,8 @@ app.use("/api/email", emailRoutes);
 
 app.listen(port, async () => {
   // Connect to the database
-  await connectDatabase();
+  await dbConnection();
   console.log("Connected to the database.");
 
-  // Sync all models with the database
-  await sequelize.sync({ alter: true });
-  console.log("All models were synchronized successfully.");
   console.log(`Notification service running on port ${port}`);
 });

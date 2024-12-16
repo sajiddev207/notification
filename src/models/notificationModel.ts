@@ -1,39 +1,43 @@
-import { DataTypes } from "sequelize";
+import mongoose from "mongoose";
 
-//import local files
-import sequelize from "../config/database";
+// extract schema from package
+const { Schema } = mongoose;
 
-const Notification: any = sequelize.define("Notification", {
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
+// initialize schema
+const notificationSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    subject: {
+      type: String,
+      required: true,
+    },
+    message: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["unread", "read"],
+      default: "unread",
+    },
+    revert: {
+      type: String,
+      default: null,
+    },
+    sentAt: { type: Date, default: Date.now(), immutable: true }, // auto timestamp
   },
-  name: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  subject: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  message: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  status: {
-    type: DataTypes.ENUM("unread", "read"),
-    defaultValue: "unread",
-  },
-  sentAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
-});
+  {
+    timestamps: false, // avoid duplicate timestamps bcoz we handle `createdAt`.
+    versionKey: false, // avoid version key `_v` in logs.
+  }
+);
 
-export default Notification;
+const notification = mongoose.model("Notifications", notificationSchema);
+export default notification;
