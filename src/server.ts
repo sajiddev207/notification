@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true })); // For parsing application/x-ww
 // cors validation
 app.use(
   cors({
-    origin: process.env.ORIGIN_URL as string,
+    origin:"*",
   })
 );
 
